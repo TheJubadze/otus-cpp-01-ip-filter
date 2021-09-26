@@ -20,11 +20,23 @@ std::vector<IpAddress> *GetIpVector() {
     return result;
 }
 
+void PrintIf(std::vector<IpAddress> &vec, bool (*predicate)(const IpAddress &)) {
+    std::for_each(vec.begin(), vec.end(),
+                  [predicate](const IpAddress &ip) {
+                      if (predicate(ip))
+                          std::cout << ip.ToString() << std::endl;
+                  });
+}
+
 int main(int, char **) {
     auto *ips = GetIpVector();
 
     std::sort(ips->begin(), ips->end(), std::greater<IpAddress>());
-    std::for_each(ips->begin(), ips->end(), [](const IpAddress &ip) { std::cout << ip.ToString() << std::endl; });
+
+    PrintIf(*ips, [](const IpAddress &) { return true; });
+    PrintIf(*ips, [](const IpAddress &ip) { return ip.A() == 1; });
+    PrintIf(*ips, [](const IpAddress &ip) { return ip.A() == 46 && ip.B() == 70; });
+    PrintIf(*ips, [](const IpAddress &ip) { return ip.A() == 46 || ip.B() == 46 || ip.C() == 46 || ip.D() == 46; });
 
     delete ips;
 

@@ -19,4 +19,8 @@ public:
     bool operator<(const IpAddress &r) const;
     bool operator>=(const IpAddress &r) const;
     bool operator<=(const IpAddress &r) const;
+    unsigned short A() const { return a; };
+    unsigned short B() const { return b; };
+    unsigned short C() const { return c; };
+    unsigned short D() const { return d; };
 };
