@@ -1,4 +1,9 @@
 #include "lib.hxx"
+#include "version.hxx"
+
+int version() {
+    return PROJECT_VERSION_PATCH;
+}
 
 bool IpAddress::operator==(const IpAddress &r) const {
     return a == r.a && b == r.b && c == r.c && d == r.d;
