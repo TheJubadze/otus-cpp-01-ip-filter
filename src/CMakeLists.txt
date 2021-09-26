@@ -29,15 +29,9 @@ target_link_libraries(ip-filer-cli PRIVATE ip-filer)
 target_link_libraries(test_version ${Boost_LIBRARIES} ip-filer)
 
 if (MSVC)
-    target_compile_options(ip-filer-cli PRIVATE
-            /W4
-            )
-    target_compile_options(ip-filer PRIVATE
-            /W4
-            )
-    target_compile_options(test_version PRIVATE
-            /W4
-            )
+    target_compile_options(ip-filer-cli PRIVATE /W4)
+    target_compile_options(ip-filer PRIVATE /W4)
+    target_compile_options(test_version PRIVATE /W4)
 else ()
     target_compile_options(ip-filer-cli PRIVATE -Wall)
     target_compile_options(ip-filer PRIVATE -Wall)
