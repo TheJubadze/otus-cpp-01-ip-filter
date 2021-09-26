@@ -5,7 +5,6 @@
 
 std::vector<IpAddress> *GetIpVector() {
     std::string l;
-    std::string segment;
     std::vector<std::string> strs;
     auto result = new std::vector<IpAddress>();
     while (std::getline(std::cin, l)) {
