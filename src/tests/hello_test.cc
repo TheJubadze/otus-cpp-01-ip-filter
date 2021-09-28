@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "lib.hxx"
+#include <lib.hxx>
 
 // Demonstrate some basic assertions.
 TEST(HelloTest, BasicAssertions) {

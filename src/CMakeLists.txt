@@ -5,8 +5,6 @@ set(PROJECT_VESRION 0.0.${PATCH_VERSION})
 
 project(ip-filer VERSION ${PROJECT_VESRION})
 
-set(CMAKE_CXX_STANDARD 11)
-
 find_package(Boost COMPONENTS unit_test_framework REQUIRED)
 
 configure_file(version.hxx.in version.hxx)
@@ -52,23 +50,4 @@ set(CPACK_DEBIAN_PACKAGE_MAINTAINER "Vitaly Senokosov")
 
 include(CPack)
 
-include(FetchContent)
-FetchContent_Declare(
-        googletest
-        GIT_REPOSITORY https://github.com/google/googletest.git)
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
-FetchContent_MakeAvailable(googletest)
-
-enable_testing()
-
-add_executable(
-        hello_test
-        hello_test.cc
-)
-target_link_libraries(
-        hello_test
-        gtest_main
-)
-
-include(GoogleTest)
-gtest_discover_tests(hello_test)
+add_subdirectory(tests)
