@@ -1,7 +1,3 @@
-cmake_minimum_required(VERSION 3.17)
-
-project(ip-filer-tests)
-
 set(CMAKE_CXX_STANDARD 11)
 
 include(FetchContent)
@@ -13,7 +9,7 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/..)
+include_directories(../src)
 
 add_executable(
         hello_test
