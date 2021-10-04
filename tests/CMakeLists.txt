@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.17)
 
 project(ip-filter-tests)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
 find_package(ip-filter CONFIG REQUIRED
         PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../install/lib/cmake)

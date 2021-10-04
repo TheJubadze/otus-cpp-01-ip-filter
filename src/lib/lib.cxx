@@ -11,13 +11,13 @@ bool IpAddress::operator>(const IpAddress &r) const {
         else if (b == r.b) {
             if (c > r.c) { return true; }
             else if (c == r.c) { return d > r.d; }
-            else { return false; }
-        } else { return false; }
-    } else { return false; }
+        }
+    }
+    return false;
 }
-bool IpAddress::operator<(const IpAddress &r) const { return !(*this > r); }
+bool IpAddress::operator<(const IpAddress &r) const { return !(*this > r) && !(*this == r); }
 bool IpAddress::operator>=(const IpAddress &r) const { return *this > r || *this == r; }
-bool IpAddress::operator<=(const IpAddress &r) const { return !(*this >= r); }
+bool IpAddress::operator<=(const IpAddress &r) const { return *this < r || *this == r; }
 
 std::string IpAddress::ToString() const {
     return std::to_string(a) + '.' +
