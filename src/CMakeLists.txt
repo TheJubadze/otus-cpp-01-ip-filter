@@ -3,31 +3,33 @@ cmake_minimum_required(VERSION 3.17)
 set(PATCH_VERSION "1" CACHE INTERNAL "Patch version")
 set(PROJECT_VESRION 0.0.${PATCH_VERSION})
 
-project(ip-filer VERSION ${PROJECT_VESRION})
+project(ip-filter-cli VERSION ${PROJECT_VESRION})
 
 configure_file(version.hxx.in version.hxx)
 
-add_executable(ip-filer-cli main.cxx)
-add_library(ip-filer lib.cxx)
+add_executable(ip-filter-cli main.cxx)
+add_subdirectory(lib)
 
-set_target_properties(ip-filer-cli ip-filer PROPERTIES
+set_target_properties(
+        ip-filter-cli
+        PROPERTIES
         CXX_STANDARD 14
         CXX_STANDARD_REQUIRED ON
-        )
+)
 
-target_include_directories(ip-filer PRIVATE "${CMAKE_BINARY_DIR}")
-
-target_link_libraries(ip-filer-cli PRIVATE ip-filer)
+target_link_libraries(
+        ip-filter-cli
+        PRIVATE
+        ip-filter
+)
 
 if (MSVC)
-    target_compile_options(ip-filer-cli PRIVATE /W4)
-    target_compile_options(ip-filer PRIVATE /W4)
+    target_compile_options(ip-filter-cli PRIVATE /W4)
 else ()
-    target_compile_options(ip-filer-cli PRIVATE -Wall)
-    target_compile_options(ip-filer PRIVATE -Wall)
+    target_compile_options(ip-filter-cli PRIVATE -Wall)
 endif ()
 
-install(TARGETS ip-filer-cli RUNTIME DESTINATION bin)
+install(TARGETS ip-filter-cli RUNTIME DESTINATION bin)
 
 set(CPACK_GENERATOR DEB)
 
