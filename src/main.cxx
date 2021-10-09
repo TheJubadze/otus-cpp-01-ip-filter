@@ -3,41 +3,44 @@
 #include <vector>
 #include <boost/algorithm/string.hpp>
 
-std::vector<IpAddress> *GetIpVector() {
+void GetIpVector(std::vector<IpAddress> &result) {
     std::string l;
     std::vector<std::string> strs;
-    auto result = new std::vector<IpAddress>();
     while (std::getline(std::cin, l)) {
         auto ipStr = boost::split(strs, l, boost::is_any_of("\t")).at(0);
         auto ip = boost::split(strs, ipStr, boost::is_any_of("."));
-        result->push_back(IpAddress(
+        result.emplace_back(IpAddress(
                 std::stoi(ip.at(0)),
                 std::stoi(ip.at(1)),
                 std::stoi(ip.at(2)),
                 std::stoi(ip.at(3))));
     }
-    return result;
 }
 
-void PrintIf(std::vector<IpAddress> &vec, bool (*predicate)(const IpAddress &)) {
+void PrintIf(std::vector<IpAddress> &vec, bool (*predicate)(const IpAddress &) = nullptr) {
     std::for_each(vec.begin(), vec.end(),
                   [predicate](const IpAddress &ip) {
-                      if (predicate(ip))
+                      if (predicate == nullptr || predicate(ip))
                           std::cout << ip.ToString() << std::endl;
                   });
 }
 
 int main(int, char **) {
-    auto *ips = GetIpVector();
+    std::vector<IpAddress> ips;
+    try {
+        GetIpVector(ips);
+    }
+    catch (...) {
+        std::cout << "Couldn't parse IP list" << std::endl;
+        return 1;
+    }
 
-    std::sort(ips->begin(), ips->end(), std::greater<IpAddress>());
+    std::sort(ips.begin(), ips.end(), std::greater<IpAddress>());
 
-    PrintIf(*ips, [](const IpAddress &) { return true; });
-    PrintIf(*ips, [](const IpAddress &ip) { return ip.A() == 1; });
-    PrintIf(*ips, [](const IpAddress &ip) { return ip.A() == 46 && ip.B() == 70; });
-    PrintIf(*ips, [](const IpAddress &ip) { return ip.A() == 46 || ip.B() == 46 || ip.C() == 46 || ip.D() == 46; });
-
-    delete ips;
+    PrintIf(ips);
+    PrintIf(ips, [](const IpAddress &ip) { return ip.A() == 1; });
+    PrintIf(ips, [](const IpAddress &ip) { return ip.A() == 46 && ip.B() == 70; });
+    PrintIf(ips, [](const IpAddress &ip) { return ip.A() == 46 || ip.B() == 46 || ip.C() == 46 || ip.D() == 46; });
 
     return 0;
 }
