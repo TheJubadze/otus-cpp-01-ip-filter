@@ -4,7 +4,10 @@ on:
   push:
     branches:
       - master
-      - feature/github_actions
+      - feature/*
+  pull_request:
+    branches:
+      - master
 
 jobs:
   build:
