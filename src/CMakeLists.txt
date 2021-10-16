@@ -5,9 +5,9 @@ set(PROJECT_VESRION 0.0.${PATCH_VERSION})
 
 project(ip-filter-cli VERSION ${PROJECT_VESRION})
 
-configure_file(version.hxx.in version.hxx)
+configure_file(version.h.in version.h)
 
-add_executable(ip-filter-cli main.cxx)
+add_executable(ip-filter-cli main.cpp)
 add_subdirectory(lib)
 
 set_target_properties(

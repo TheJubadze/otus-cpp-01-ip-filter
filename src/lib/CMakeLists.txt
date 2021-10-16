@@ -5,8 +5,8 @@ project(ip-filter-lib)
 add_library(
         ip-filter
         STATIC
-        lib.cxx
-        lib.hxx)
+        lib.cpp
+        lib.h)
 
 set_target_properties(
         ip-filter
@@ -26,7 +26,7 @@ install(TARGETS ip-filter EXPORT ip-filter-targets
         INCLUDES DESTINATION include
         )
 
-install(FILES lib.hxx DESTINATION include)
+install(FILES lib.h DESTINATION include)
 
 install(EXPORT ip-filter-targets
         FILE ip-filter-config.cmake
