@@ -2,7 +2,7 @@
 
 git clean -xdf
 
-cmake -S ./src -B build -DPATCH_VERSION=123456
+cmake -S ./src -B build -DPATCH_VERSION=1
 cmake --build build
 
 cmake -S ./src/lib -B build_lib -DCMAKE_INSTALL_PREFIX=install
