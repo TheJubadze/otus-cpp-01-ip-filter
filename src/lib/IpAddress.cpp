@@ -1,4 +1,4 @@
-#include "lib.hxx"
+#include "IpAddress.h"
 
 bool IpAddress::operator==(const IpAddress &r) const {
     return a == r.a && b == r.b && c == r.c && d == r.d;
