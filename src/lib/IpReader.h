@@ -8,6 +8,6 @@ using StringVector = std::unique_ptr<std::vector<std::string>>;
 
 class IpReader {
 public:
-    StringVector Read();
+    static StringVector Read();
 };
 

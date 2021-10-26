@@ -14,10 +14,9 @@ void PrintIf(IpVector &vec, bool (*predicate)(const IpAddress &) = nullptr) {
 }
 
 int main(int, char **) {
-    IpReader ipReader;
     IpVector ips;
     try {
-        auto strings = ipReader.Read();
+        auto strings = IpReader::Read();
         ips = IpParser::Parse(strings);
     }
     catch (std::exception &e) {
