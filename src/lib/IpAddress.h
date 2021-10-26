@@ -2,8 +2,6 @@
 
 #include <iostream>
 
-int version();
-
 class IpAddress {
     unsigned short a;
     unsigned short b;
