@@ -1,24 +1,12 @@
-#include "lib/lib.h"
+#include "lib/IpAddress.h"
+#include "lib/IpReader.h"
+#include "lib/IpParser.h"
 #include <iostream>
 #include <vector>
 #include <boost/algorithm/string.hpp>
 
-void GetIpVector(std::vector<IpAddress> &result) {
-    std::string l;
-    std::vector<std::string> strs;
-    while (std::getline(std::cin, l)) {
-        auto ipStr = boost::split(strs, l, boost::is_any_of("\t")).at(0);
-        auto ip = boost::split(strs, ipStr, boost::is_any_of("."));
-        result.emplace_back(IpAddress(
-                std::stoi(ip.at(0)),
-                std::stoi(ip.at(1)),
-                std::stoi(ip.at(2)),
-                std::stoi(ip.at(3))));
-    }
-}
-
-void PrintIf(std::vector<IpAddress> &vec, bool (*predicate)(const IpAddress &) = nullptr) {
-    std::for_each(vec.begin(), vec.end(),
+void PrintIf(IpVector &vec, bool (*predicate)(const IpAddress &) = nullptr) {
+    std::for_each(vec->begin(), vec->end(),
                   [predicate](const IpAddress &ip) {
                       if (predicate == nullptr || predicate(ip))
                           std::cout << ip.ToString() << std::endl;
@@ -26,16 +14,18 @@ void PrintIf(std::vector<IpAddress> &vec, bool (*predicate)(const IpAddress &) =
 }
 
 int main(int, char **) {
-    std::vector<IpAddress> ips;
+    IpReader ipReader;
+    IpVector ips;
     try {
-        GetIpVector(ips);
+        auto strings = ipReader.Read();
+        ips = IpParser::Parse(strings);
     }
-    catch (...) {
-        std::cout << "Couldn't parse IP list" << std::endl;
+    catch (std::exception &e) {
+        std::cout << "Couldn't parse IP list: " << e.what() << std::endl;
         return 1;
     }
 
-    std::sort(ips.begin(), ips.end(), std::greater<IpAddress>());
+    std::sort(ips->begin(), ips->end(), std::greater<>{});
 
     PrintIf(ips);
     PrintIf(ips, [](const IpAddress &ip) { return ip.A() == 1; });

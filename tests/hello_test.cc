@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include <lib.h>
+#include <IpAddress.h>
 
 class IpAddressTestFixture
         : public ::testing::TestWithParam<std::tuple<bool (*)(), bool>> {
